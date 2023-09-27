@@ -1,0 +1,6 @@
+services:
+  rust:
+    image: rust:1.72.1-bookworm
+    volumes:
+      - .:/code
+    tty: true
