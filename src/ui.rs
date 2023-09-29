@@ -83,7 +83,8 @@ pub fn render_item_titles<'a>(
 
 #[test]
 fn test_list_navigation() {
-    let mut list = NavigableList::from(vec![1, 2, 3]);
+    let items = vec![1, 2, 3];
+    let mut list = NavigableList::from(&items);
     assert_eq!(*list.get(), 1);
 
     list.move_prev();
