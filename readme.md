@@ -7,14 +7,13 @@ using your favorite terminal.
 
 - UI
   - [X] Navigate a list of story titles
-    - [ ] Scroll through list rendered beyond terminal height
+    - [X] Scroll through list rendered beyond terminal height
   - [ ] Display comments on a selected story
 - API
   - [X] Get item ids for stories from endpoints: best/new/top
   - [X] Get an item's data via id
   - [X] Get data for a list of item ids
-    - 1 `tokio` task per item executed asynchronously
+    - 1 `tokio` task per GET item request, executed asynchronously
 - Code
   - [X] Refactor HNClient into sub-module
-  - [ ] Refactor UI into sub-module
-    - Define a state machine for UI
+  - [X] Refactor UI into sub-module
