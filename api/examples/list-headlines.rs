@@ -1,4 +1,5 @@
-use client::{api, ui};
+use api::{client, ui};
+use api::types::StoryKind;
 
 use ratatui::prelude::{CrosstermBackend, Terminal};
 
@@ -13,10 +14,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut terminal = Terminal::new(CrosstermBackend::new(std::io::stderr()))?;
 
     // create the API client
-    let client = api::HNClient::new();
+    let client = api::client::HNClient::new();
 
     // query stories as a list of items
-    let item_ids = client.get_stories(api::Story::Best).await?;
+    let item_ids = client.get_stories(StoryKind::Best).await?;
     let mut item_id_list = ui::NavigableList::from(&item_ids);
 
     // query each item's content

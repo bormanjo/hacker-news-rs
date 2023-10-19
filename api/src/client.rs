@@ -3,13 +3,13 @@ use serde::de::DeserializeOwned;
 use std::sync::Arc;
 use tokio::task::JoinError;
 
-use super::types::{Item, Story};
+use super::types::{Item, StoryKind};
 
 
 const API_VER: &str = "v0";
 const API_URL: &str = "https://hacker-news.firebaseio.com";
 
-
+#[derive(Debug)]
 pub struct HNClient {
     client: reqwest::Client,
     url: url::Url,
@@ -48,11 +48,11 @@ impl HNClient {
             .expect(format!("Failed to get item: {}", item_id).as_str())
     }
 
-    pub async fn get_stories(&self, kind: Story) -> Result<Vec<u32>, Box<dyn std::error::Error>> {
+    pub async fn get_stories(&self, kind: &StoryKind) -> Result<Vec<u32>, Box<dyn std::error::Error>> {
         let val = match kind {
-            Story::Best => "beststories",
-            Story::New => "newstories",
-            Story::Top => "topstories",
+            StoryKind::Best => "beststories",
+            StoryKind::New => "newstories",
+            StoryKind::Top => "topstories",
         };
         
         let endpoint = format!("/{}.json", val);
@@ -60,7 +60,7 @@ impl HNClient {
         Ok(items)
     }
 
-    pub async fn get_items(self: Arc<Self>, item_ids: &Vec<u32>)-> Vec<Item> {
+    pub async fn get_items(self: &Arc<Self>, item_ids: &Vec<u32>)-> Vec<Item> {
         // allocate a vector of task handles
         let mut handles = Vec::with_capacity(item_ids.len());
         for item_id in item_ids {

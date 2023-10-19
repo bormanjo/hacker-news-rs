@@ -3,7 +3,7 @@ use ratatui::text::{Line, Span, Text};
 use ratatui::widgets::Paragraph;
 use std::collections::HashMap;
 
-use super::api::Item;
+use crate::types::Item;
 
 
 pub struct NavigableList<'a, T> {
